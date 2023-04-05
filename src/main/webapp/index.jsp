@@ -2,7 +2,6 @@
 <%@ taglib prefix = "x" uri = "http://java.sun.com/jsp/jstl/xml" %>
 
 <%@page import="br.com.gabrielxavier.enuns.CategoriaLivroEnum"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +9,8 @@
 	<title>Novo Livro</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="https://unpkg.com/@splidejs/splide@3.0.9/dist/css/splide.min.css" />
+    <link rel="stylesheet" href="/main/webapp/css/home.css">
 </head>
 <body>
 
@@ -52,11 +52,22 @@
         </div>
 
         <!-- Recomendaçoes -->
-        <div class="recomendacao-board flex-fill border m-3">
-
-            <c:forEach items="${livros}" var="livro">
-                <div class="border p-1">${livro.getTitulo()}</p> </div>
-            </c:forEach>
+        <div id="conetent-img" class="recomendacao-board flex-fill border m-3">
+            <div class="splide">
+                    <div class="splide__track">
+                        <ul class="splide__list">
+                            <li class="splide__slide">
+                                <img src="https://m.media-amazon.com/images/I/91BsZhxCRjL.jpg" alt="Image 1">
+                            </li>
+                            <li class="splide__slide">
+                                <img src="https://m.media-amazon.com/images/I/916WkSH4cGL.jpg" alt="Image 2">
+                            </li>
+                            <li class="splide__slide">
+                                <img src="image3.jpg" alt="Image 3">
+                            </li>
+                        </ul>
+                    </div>
+            </div>
         </div>
     </div>
 
@@ -64,5 +75,49 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/@splidejs/splide@3.0.9/dist/js/splide.min.js"></script>
+
+
 </body>
+<style>
+#conetent-img img{
+height: 370px;
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1200px;
+  }
+}
+
+.menu-principal{
+    background-color: #593E25;
+}
+
+.nav-link{
+
+    color: white;
+    font-size: 1.23em;
+}
+
+.nav-link:hover{
+    transition: 0.5s;
+    color: rgb(184, 139, 97);
+}
+
+.navbar-nav > li > .dropdown-item option:hover {     background-color: #A64F03;  }
+
+.categoria-item-container div:hover{
+
+    transition: 0.5;
+    background-color: #d6d6d6;
+}
+
+</style>
+
+<!-- Initialize Splide -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        new Splide('.splide').mount();
+    });
+</script>
 </html>
