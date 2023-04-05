@@ -1,0 +1,5 @@
+br\com\gabrielxavier\enuns\CategoriaLivroEnum.class
+br\com\gabrielxavier\servlet\HomeServlet.class
+br\com\gabrielxavier\PrimeiroServlet.class
+br\com\gabrielxavier\model\Livro.class
+br\com\gabrielxavier\servlet\NovoLivroServlet.class

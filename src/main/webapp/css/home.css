@@ -1,0 +1,28 @@
+@media (min-width: 1200px) {
+  .container {
+    width: 1200px;
+  }
+}
+
+.menu-principal{
+    background-color: #593E25;
+}
+
+.nav-link{
+
+    color: white;
+    font-size: 1.23em;
+}
+
+.nav-link:hover{
+    transition: 0.5s;
+    color: rgb(184, 139, 97);
+}
+
+.navbar-nav > li > .dropdown-item option:hover {     background-color: #A64F03;  }
+
+.categoria-item-container div:hover{
+
+    transition: 0.5;
+    background-color: #d6d6d6;
+}
