@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://unpkg.com/@splidejs/splide@3.0.9/dist/css/splide.min.css" />
-    <link rel="stylesheet" href="/main/webapp/css/home.css">
+    <link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
 
@@ -52,23 +52,24 @@
         </div>
 
         <!-- Recomendaçoes -->
-        <div id="conetent-img" class="recomendacao-board flex-fill border m-3">
-            <div class="splide">
-                    <div class="splide__track">
-                        <ul class="splide__list">
-                            <li class="splide__slide">
-                                <img src="https://m.media-amazon.com/images/I/91BsZhxCRjL.jpg" alt="Image 1">
-                            </li>
-                            <li class="splide__slide">
-                                <img src="https://m.media-amazon.com/images/I/916WkSH4cGL.jpg" alt="Image 2">
-                            </li>
-                            <li class="splide__slide">
-                                <img src="image3.jpg" alt="Image 3">
-                            </li>
-                        </ul>
-                    </div>
-            </div>
+        <div class="recomendacao-board flex-fill border m-3 p-2" id="recomendacao-board">
+            <section class="splide" aria-label="Splide Basic HTML Example">
+              <div class="splide__track">
+            		<ul class="splide__list">
+            		<c:forEach  items="${livros}" var="livro">
+                        <li class="splide__slide">
+                            <div class="splide__slide__container">
+                                <img src=${livro.getUrlFotoCapa()} alt=${livro.getTitulo()}>
+                            </div>
+                           <p>${livro.getTitulo()}</p>
+                        </li>
+
+                    </c:forEach>
+            		</ul>
+              </div>
+            </section>
         </div>
+
     </div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -80,12 +81,27 @@
 
 </body>
 <style>
-#conetent-img img{
-height: 370px;
+
+.splide__track img{
+    position: relative;
+    height: 100%;
+
 }
+.splide__slide{
+    padding: 10px;
+}
+.splide__slide:hover{
+
+    transition: 0.5s;
+    color: rgb(184, 139, 97);
+    background-color: #d6d6d6;
+}
+
+
+
 @media (min-width: 1200px) {
   .container {
-    width: 1200px;
+    width: 1100px;
   }
 }
 
@@ -116,8 +132,15 @@ height: 370px;
 
 <!-- Initialize Splide -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        new Splide('.splide').mount();
-    });
+
+    var splide = new Splide( '.splide', {
+      type    : 'loop',
+      perPage : 3,
+      autoplay: true,
+      width: "850px",
+      height: "400px"
+    } );
+
+    splide.mount();
 </script>
 </html>
