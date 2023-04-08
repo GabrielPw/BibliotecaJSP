@@ -12,7 +12,9 @@ public enum CategoriaLivroEnum {
     BIOGRAFIA("Biografia"),
     AUTOAJUDA("Auto-ajuda"),
     FILOSOFIA("Filosofia"),
-    AVENTURA("Aventura");
+    AVENTURA("Aventura"),
+    TECNOLOGIA("Tecnologia");
+
 
     private final String name;
 
