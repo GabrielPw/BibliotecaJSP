@@ -6,8 +6,13 @@ import java.util.List;
 public enum CategoriaLivroEnum {
 
     FICCAO("Ficção"),
+    DISTOPIA("Distopia"),
     NAO_FICCAO("Não-Ficção"),
     TERROR("Terror"),
+    MISTERIO("Misterio"),
+    TRAGEDIA("Tragédia"),
+    FICCAO_POLITICA("Ficção política"),
+    FICCAO_ABSURDA("Ficção absurda"),
     ROMANCE("Romance"),
     BIOGRAFIA("Biografia"),
     AUTOAJUDA("Auto-ajuda"),

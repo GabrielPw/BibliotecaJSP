@@ -1,6 +1,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
+html{
+    scroll-behavior: smooth;
+}
 
 body{
     background-color: #f9f9f9;
@@ -14,6 +17,7 @@ body{
 
 .recomendacao-board{
 
+    align-self: bottom;
     overflow: hidden;
 }
 
@@ -23,9 +27,20 @@ body{
   }
 }
 
-.menu-principal{
-    background-color: #593E25;
-    margin-bottom: 10px;
+.autores-row{
+
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgb(133 95 59 / 38%);
+}
+
+.lista-livros-autor{
+
+    font-style: italic;
+    text-align: center;
+    text-decoration: underline;
+    list-style: none;
+    color: rgb(175 124 76);
+    font-size: 18px;
 }
 
 .nav-link{
@@ -117,4 +132,11 @@ h2{
     transition: 0.5s;
     color: rgb(184, 139, 97);
     background-color: #d6d6d6;
+}
+.splide__pagination__page{
+    background: #463125;
+}
+
+.splide__pagination__page.is-active{
+    background-color: rgb(175 124 76);
 }

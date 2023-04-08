@@ -18,16 +18,14 @@
 
     <!-- menu principal-->
      <header id="header">
-        <a id="logo" href="">Logo</a>
-        <nav id="nav">
+        <a id="logo" href="">Biblioteca<i>JSP</i></a>
+        <nav id="nav" class="container">
           <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu" aria-expanded="false">Menu
             <span id="hamburger"></span>
           </button>
           <ul id="menu" role="menu">
-            <li><a href="/">Sobre</a></li>
-            <li><a href="/">Produtos</a></li>
-            <li><a href="/">Portfólio</a></li>
-            <li><a href="/">Contato</a></li>
+            <li><a href="/biblioteca/">Inicio</a></li>
+            <li><a href="/biblioteca/#autores">Autores</a></li>
           </ul>
         </nav>
       </header>
@@ -67,6 +65,7 @@
 
             <!-- Recomendaçoes -->
             <div class="recomendacao-board flex-fill border m-3 p-2" id="recomendacao-board">
+                <p style="color: rgb(175 124 76);"><b><i>Recomendaçoes</i></b></p>
                 <section class="splide" aria-label="Splide Basic HTML Example">
                   <div class="splide__track">
                         <ul class="splide__list">
@@ -77,7 +76,6 @@
                                 </div>
                                <p>${livro.getTitulo()} - ${livro.getAutor()}</p>
                             </li>
-
                         </c:forEach>
                         </ul>
                   </div>
@@ -89,22 +87,31 @@
     <hr class="container"/>
 
     <div class="container">
-        <h2>Procurando livros e histórias incríveis? Encontre aqui.</h2>
+        <h2>Procurando livros com histórias incríveis? Encontre aqui.</h2>
 
         <p><b>Autores</b></p>
-        <div class="d-flex justify-content-center row p-2 border">
-            <c:forEach  items="${autores}" var="autor">
-                <div class="p-2 border">
-                    <div class="card" style="width: 18rem;">
-                      <img src="${autor.urlFoto}" class="card-img-top" alt="..." height="300px">
-                      <div class="card-body card-body-autores" style="height: 170px">
-                        <h5 class="card-title">${autor.nome}</h5>
-                        <p class="card-text">${autor.descricao}</p>
-                        <a href="#" class="btn-vermais">Ver detalhes</a>
+        <div class="container row" id="autores" style="align-items:end;">
+            <div class="row">
+                <c:forEach  items="${autores}" var="autor">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col">
+                          <div class="" style="text-align:center; background-color: #f9f9f9;">
+                            <p><b>${autor.getNome()}</b></p>
+                            <img src="${autor.getUrlFoto()}" class="img-thumbnail" width="200px">
+                          </div>
+                          <div class="col">
+                            <ul class="lista-livros-autor">
+                                <c:forEach var="livrosLista" items="${autor.getLivros()}">
+                                  <li>${livrosLista.titulo}</li>
+                                </c:forEach>
+                            </ul>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                </div>
-            </c:forEach>
+                </c:forEach>
+            </div>
         </div>
     </div>
 
