@@ -7,7 +7,7 @@ public enum CategoriaLivroEnum {
 
     FICCAO("Ficção"),
     DISTOPIA("Distopia"),
-    NAO_FICCAO("Não-Ficção"),
+    NAO_FICCAO("Não Ficção"),
     TERROR("Terror"),
     MISTERIO("Misterio"),
     TRAGEDIA("Tragédia"),

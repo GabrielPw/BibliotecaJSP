@@ -5,6 +5,127 @@ html{
     scroll-behavior: smooth;
 }
 
+.top-container{
+    display: flex;
+    align-items: center;
+}
+
+.initial-container{
+        border-radius: 0px 0px 6px 6px;
+        margin-right: 0;
+        margin-left: 400px;
+}
+
+.board-cadastro{
+
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+}
+
+.board-cadastro .cadastro{
+    margin-top: 10px;
+    border-radius: 6px 6px 0px 0px;
+    background: rgb(175 124 76);
+}
+.board-cadastro .entrar{
+    background: rgb(195 174 136);
+    border-radius: 0px 0px 6px 6px;
+}
+
+.board-cadastro span{
+    display: block;
+    color: black;
+    text-align: center;
+
+    font-size: 18px;
+    padding: 5px;
+    border-bottom: 1px solid darkgray;
+    text-align: center;
+    font-weight: 400;
+}
+
+.board-cadastro a{
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 10px;
+}
+
+.board-cadastro ul,.board-cadastro ul li{
+    list-style: none;
+}
+
+.ver-todos{
+
+    padding: 0 90px;
+    justify-content: flex-end;
+    width: 100%;
+    display: flex;
+}
+
+.botao-cadastro{
+
+    width: 100%;
+}
+
+.contatos{
+    list-style: none;
+    display: flex;
+    gap: 6px;
+}
+
+.card{
+    border: 0 !important;
+
+}
+
+.footer{
+
+    background: #593e25 !important;
+    color: #FFF;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+
+svg path{
+    fill: #FFF;
+}
+
+.botao-ver-todos {
+    background: #593e25;
+    color: #FFF !important;
+    padding: 10px;
+    font-weight: 800;
+    border-radius: 10px;
+}
+
+.input-pesquisa {
+    border-radius: 10px 0px 0px 10px;
+}
+
+.botao-buscar{
+    background: #593e25;
+    color: white;
+    border-radius: 0px 10px 10px 0px;
+}
+
+.image-autor{
+
+    border-radius: 5px;
+}
+
+.botao-ver-todos:hover {
+    background: #FFF;
+    color: #593e25 !important;
+    padding: 10px;
+    border: solid 1px #593e25;
+    transition: 0.90s;
+    border-radius: 10px;
+}
+
 body{
     background-color: #f9f9f9;
     font-family: 'Roboto', sans-serif;
@@ -15,6 +136,12 @@ body{
     width: 100%;
 }
 
+.link-categoria{
+
+    color: black;
+    text-decoration: none;
+}
+
 .recomendacao-board{
 
     align-self: bottom;
@@ -23,7 +150,38 @@ body{
 
 @media (min-width: 1200px) {
   .container {
-    width: 1100px;
+    width: 1200px;
+  }
+}
+
+@media (max-width: 1790px) {
+  .initial-container {
+    margin-left: 300px;
+  }
+}
+
+@media (max-width: 1680px) {
+  .initial-container {
+    margin-left: 200px;
+  }
+}
+
+@media (max-width: 1600px) {
+  .initial-container {
+    margin-left: 200px;
+  }
+
+  .top-container {
+    display: block;
+    margin-left: 200px;
+
+  }
+}
+
+@media (max-width: 1790px) {
+
+  .board-cadastro {
+    display: block;
   }
 }
 

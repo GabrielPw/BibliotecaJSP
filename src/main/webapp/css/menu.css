@@ -17,19 +17,31 @@ a:hover {
 #logo {
   font-size: 1.5rem;
   font-weight: bold;
+  color: rgb(195 174 136);
+  text-decoration:none;
+}
+
+#logo:hover {
+  transition:0.5s;
+  color: rgb(175 124 76);
 }
 
 #header {
   box-sizing: border-box;
   height: 70px;
   padding: 1rem;
-  display: flex;
-  align-items: center;
   background: #593e25;
+}
+
+#header-links{
+    display: flex;
+    gap:20px;
+    align-items: center;
 }
 
 #menu {
   display: flex;
+  justify-content: end;
   list-style: none;
   gap: 0.5rem;
 }
@@ -37,6 +49,7 @@ a:hover {
 #menu a {
   display: block;
   padding: 0.8rem;
+  font-size: 17px;
   text-decoration: none;
 }
 

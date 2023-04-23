@@ -28,46 +28,29 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        System.out.println("Criou a lista de livros!\n");
-        List<Livro> livros = new ArrayList<>(List.of(
-                new Livro(1L, "A Revolução dos Bichos", "George Orwell", "https://m.media-amazon.com/images/I/91BsZhxCRjL.jpg", List.of(CategoriaLivroEnum.FICCAO_POLITICA)),
-                new Livro(2L, "Crime e Castigo", "Fiódor Dostoiévski", "https://m.media-amazon.com/images/I/916WkSH4cGL.jpg", List.of(CategoriaLivroEnum.TRAGEDIA)),
-                new Livro(2L, "Os Irmãos Karamazov", "Fiódor Dostoiévski", "https://imgs.search.brave.com/cg7w8Y1FTtk_LjiyfxzK1Sf9DYf9c4CcW9ZCPp2J1lU/rs:fit:500:770:1/g:ce/aHR0cHM6Ly9pbWcu/YmVydHJhbmQucHQv/aW1hZ2VzL29zLWly/bWFvcy1rYXJhbWF6/b3Ytdm9sdW1lLWlp/LWZpb2Rvci1kb3N0/b2lldnNraS9ORFY4/TWpRM09ERXlOREo4/TWpBNU5qTTBOVGQ4/TVRZeU1UVTFNVFl3/TURBd01BPT0vNTAw/eA", List.of(CategoriaLivroEnum.TRAGEDIA)),
-                new Livro(3L, "1984", "George Orwell", "https://m.media-amazon.com/images/I/819js3EQwbL.jpg", List.of(CategoriaLivroEnum.DISTOPIA, CategoriaLivroEnum.FICCAO_POLITICA)),
-                new Livro(4L, "Frankenstein", "Mary Shelley", "https://kbimages1-a.akamaihd.net/bd3fce8f-a9a0-4cb0-a539-d8779090ba51/1200/1200/False/frankenstein-557.jpg", List.of(CategoriaLivroEnum.MISTERIO, CategoriaLivroEnum.TERROR)),
-                new Livro(5L, "A Metamorfose", "Franz Kafka", "https://m.media-amazon.com/images/I/71QLwli7GUL.jpg", List.of(CategoriaLivroEnum.FICCAO_ABSURDA)),
-                new Livro(6L, "Discurso do Método", "René Descartes", "https://m.media-amazon.com/images/I/81+nKmcY6fL.jpg", List.of(CategoriaLivroEnum.FILOSOFIA)),
-                new Livro(7L, "O Mundo como vontande e como representação", "Arthur Schopenhauer", "https://imgs.search.brave.com/IShZNIxi-5vvuqgfdNWhvbIcTnm26ZAlI4Bt_CG6aIg/rs:fit:600:859:1/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9OUV9OUF8y/WF84NDE5NjktTUxC/NDMyMTgzOTI5ODJf/MDgyMDIwLUYuanBn", List.of(CategoriaLivroEnum.FILOSOFIA)),
-                new Livro(8L, "Guerra e Paz", "Liev Tolstói", "https://http2.mlstatic.com/D_NQ_NP_661636-MLB48631324828_122021-O.jpg", List.of(CategoriaLivroEnum.FILOSOFIA))
-                )
-        );
+        List<Autor> autores;
+        List<Livro> livros;
 
-        List<Autor> autores = new ArrayList<>(List.of(
-                new Autor(1L, "George Orwell", "", "https://imgs.search.brave.com/XZapAaXM9snUcPgbGgJyC08K2ldVWACo7zINk55sGTA/rs:fit:1142:1200:1/g:ce/aHR0cHM6Ly9lbnRy/ZWNhbm9zLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMjAxOS8w/OC9lYy1nZW9yZ2Ut/b3J3ZWxsLTg3MTZl/MjJjOWE3YjM2ZWYz/YmVkZDhkYTA1MTU3/ZGI1LmpwZw"),
-                new Autor(2L, "Fiódor Dostoiévski", "", "https://imgs.search.brave.com/WXQ99tpXz_QuPmhZ0DSZPj1RhzlI5V9Yh5YHuC34r1Y/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly8xLmJw/LmJsb2dzcG90LmNv/bS8teXpuRFdRcWJf/Wm8vV241T1VDb1Fz/S0kvQUFBQUFBQUFC/ZW8vMUp4dXo4bEwx/U1VrN2ZodXZZTXpS/VTNnMVBxbzFOUmVR/Q0xjQkdBcy9zMTYw/MC9GaSUyNUMzJTI1/QjNkb3IlMkJEb3N0/b2lldnNraS5qcGc"),
-                new Autor(3L, "Franz Kafka", "", "https://imgs.search.brave.com/AVsMXNm9zQApuNt39ioGeKQPRj4Xc0_7zLNpP6O6BdA/rs:fit:1200:1199:1/g:ce/aHR0cHM6Ly80LmJw/LmJsb2dzcG90LmNv/bS8taWRxQWhudUE1/c0EvV0xNZEFsTmRr/WUkvQUFBQUFBQUFD/TmsvY3kyRHFtZUFS/OU1UX0c2bjN4QnB0/a25iSDR0SHZVdkFn/Q0xjQi9zMTYwMC9m/cmFuei1rYWZrYS5q/cGc"),
-                new Autor(4L, "Mary Shelley", "", "https://imgs.search.brave.com/LSxGDFI9HWUuebBHGPyhG5y0EK-BSlJq6Qja7-GPA5Y/rs:fit:1200:902:1/g:ce/aHR0cHM6Ly9mdGht/Yi50cW4uY29tL21T/MUh6UGNpeDNDendm/TUVWNGU4MURWQ1Ni/cyUzZC8xMjAzeDkw/Mi9maWx0ZXJzOmZp/bGwoYXV0byUyYzEp/L01hcnktU2hlbGxl/eS0xNzExOTQwMzR4/LTU2YWEyM2E0M2Rm/NzhjZjc3MmFjODc5/ZC5qcGc"),
-                new Autor(5L, "Arthur Schopenhauer", "", "https://imgs.search.brave.com/GZN7Wo3BqEjIaYzAyOqxPriaIpEkmJVn5VxzkQdHIt4/rs:fit:1200:1153:1/g:ce/aHR0cHM6Ly93d3cu/Ymlvc2lnbG9zLmNv/bS93cC1jb250ZW50/L3VwbG9hZHMvMjAw/OC8wOC9hcnRodXIt/c2Nob3BlbmhhdWVy/LTE1MzZ4MTE1My5q/cGc"),
-                new Autor(6L, "Liev Tolstói", "", "https://imgs.search.brave.com/nK73q3VXsPIZsiGfFHdRcWMx8_350a__0Vzbkwv0exI/rs:fit:1200:1164:1/g:ce/aHR0cHM6Ly8xLmJw/LmJsb2dzcG90LmNv/bS8tcUhGWmt6dFVE/Q0UvVjlJT3RYUmV0/dkkvQUFBQUFBQUFi/cVEvUGxoYVdXUTNl/QUFOaTBwTUxVcGZh/VVVEQlN1cFBiNWl3/Q0xjQi9zMTYwMC9N/VEU1TlRVMk16STBP/VFF4TURBMk16UTMu/anBn")
-        ));
+        // Obtem todos os livros do banco.
+        autores = Autor.getAllAutores();
+        livros = Livro.getAllLivros();
 
+        // Pegando itens aleatórios dentro da lista de livros (esses elementos aleatórios serão recomendado na HomePage)
+        Random random = new Random();
+        List<Livro> livrosRecomendados = new ArrayList<>();
 
-        autores.forEach(autor -> {
-            livros.forEach(livro -> {
-                if(livro.getAutor().equals(autor.getNome())){
-                    autor.addLivro(livro);
-                }
-            });
-        });
+        // adicionando 6 livros aleatórios na lista de livros recomendados.
+        while (livrosRecomendados.size() < 6){
 
-        autores.forEach(autor -> {
-            autor.getLivros().forEach(livro -> {
-                System.out.println("Livro do " + autor.getNome() + ": " + livro.getTitulo());
-            });
-        });
+            int indiceAleatorio = random.nextInt(livros.size());
 
+            // se o livro aleatório obtido NÃO estiver na lista de recomendados ele será adicionado.
+            if(!livrosRecomendados.contains(livros.get(indiceAleatorio))) {
+                livrosRecomendados.add(livros.get(indiceAleatorio));
+            }
+        }
 
-        request.setAttribute("livros", livros);
+        request.setAttribute("livros", livrosRecomendados);
         request.setAttribute("autores", autores);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");

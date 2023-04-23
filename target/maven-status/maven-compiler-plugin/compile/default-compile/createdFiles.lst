@@ -1,8 +1,10 @@
 br\com\gabrielxavier\servlet\HomeServlet.class
+br\com\gabrielxavier\database\DatabaseConnection.class
 br\com\gabrielxavier\model\Autor.class
 br\com\gabrielxavier\model\Livro.class
 br\com\gabrielxavier\enuns\CategoriaLivroEnum.class
 br\com\gabrielxavier\servlet\SearchServlet.class
 br\com\gabrielxavier\PrimeiroServlet.class
+br\com\gabrielxavier\servlet\GerenciadorDeLivrosServlet.class
 br\com\gabrielxavier\servlet\NovoLivroServlet.class
 br\com\gabrielxavier\servlet\rootUrlRedirectServlet.class
