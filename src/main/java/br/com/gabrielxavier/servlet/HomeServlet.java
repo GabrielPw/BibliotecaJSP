@@ -28,30 +28,15 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<Autor> autores;
-        List<Livro> livros;
+        List<Autor> autoresRecomendados;
+        List<Livro> livrosRecomendados;
 
-        // Obtem todos os livros do banco.
-        autores = Autor.getAllAutores();
-        livros = Livro.getAllLivros();
-
-        // Pegando itens aleatórios dentro da lista de livros (esses elementos aleatórios serão recomendado na HomePage)
-        Random random = new Random();
-        List<Livro> livrosRecomendados = new ArrayList<>();
-
-        // adicionando 6 livros aleatórios na lista de livros recomendados.
-        while (livrosRecomendados.size() < 6){
-
-            int indiceAleatorio = random.nextInt(livros.size());
-
-            // se o livro aleatório obtido NÃO estiver na lista de recomendados ele será adicionado.
-            if(!livrosRecomendados.contains(livros.get(indiceAleatorio))) {
-                livrosRecomendados.add(livros.get(indiceAleatorio));
-            }
-        }
+        // Obtem livros e autores recomendados para exibir na homePage.
+        autoresRecomendados = Autor.getRecomendados(6);
+        livrosRecomendados = Livro.getRecomendados(6);
 
         request.setAttribute("livros", livrosRecomendados);
-        request.setAttribute("autores", autores);
+        request.setAttribute("autores", autoresRecomendados);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
         dispatcher.forward(request, response);

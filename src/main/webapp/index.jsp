@@ -17,23 +17,7 @@
 <body>
 
     <!-- menu principal-->
-     <header id="header">
-        <div id="header-links" class="container">
-            <a id="logo" href="/biblioteca/">Biblioteca<i>JSP</i></a>
-            <nav id="nav" class="container">
-              <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu" aria-expanded="false">Menu
-                <span id="hamburger"></span>
-              </button>
-              <ul id="menu" role="menu">
-                <li><a href="/biblioteca/">Inicio</a></li>
-                <li><a href="/biblioteca/#autores">Autores</a></li>
-                <li><a href="/biblioteca/gerenciadorLivros">Add. Livro</a></li>
-              </ul>
-            </nav>
-        </div>
-     </header>
-     <script src="./script.js"></script>
-
+    <jsp:include page="menu.jsp" />
 
     <div class="top-container p-0 m-0">
         <div class="initial-container container border" style="background-color: white;">
@@ -91,7 +75,7 @@
 
         <div class="board-cadastro border rounded p-2">
             <div>
-                <span style="text-align:center;">Sua conta</span>
+                <span style="text-align:center;">Sua conta <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#af7c4c" d="M14 9.9V8.2q.825-.35 1.688-.525T17.5 7.5q.65 0 1.275.1T20 7.85v1.6q-.6-.225-1.213-.338T17.5 9q-.95 0-1.825.238T14 9.9Zm0 5.5v-1.7q.825-.35 1.688-.525T17.5 13q.65 0 1.275.1t1.225.25v1.6q-.6-.225-1.213-.338T17.5 14.5q-.95 0-1.825.225T14 15.4Zm0-2.75v-1.7q.825-.35 1.688-.525t1.812-.175q.65 0 1.275.1T20 10.6v1.6q-.6-.225-1.213-.338T17.5 11.75q-.95 0-1.825.238T14 12.65ZM6.5 16q1.175 0 2.288.263T11 17.05V7.2q-1.025-.6-2.175-.9T6.5 6q-.9 0-1.788.175T3 6.7v9.9q.875-.3 1.738-.45T6.5 16Zm6.5 1.05q1.1-.525 2.212-.788T17.5 16q.9 0 1.763.15T21 16.6V6.7q-.825-.35-1.713-.525T17.5 6q-1.175 0-2.325.3T13 7.2v9.85ZM12 20q-1.2-.95-2.6-1.475T6.5 18q-1.325 0-2.775.5T1 20.05V5.55Q2.1 4.8 3.588 4.4T6.5 4q1.45 0 2.838.375T12 5.5q1.275-.75 2.663-1.125T17.5 4q1.425 0 2.913.4T23 5.55v14.5Q21.75 19 20.287 18.5T17.5 18q-1.5 0-2.9.525T12 20Zm-5-8.475Z"/></svg></span>
             </div>
             <ul>
                 <li><a class="botao-cadastro cadastro" href="/biblioteca/#" style="background: rgb(175 124 76);">Cadastre-se</a></li>
@@ -142,7 +126,7 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card footer">
       <div class="card-header footer">
           <span><p>Desenvolvido por: Gabriel Xavier.</p></span>
           <span>
@@ -150,6 +134,10 @@
               <a href="https://linkedin.com/in/gabriel-xavier-a5b762242"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77Z"/></svg></a>
           </span>
       </div>
+      <div>
+          <p style="text-align: center">O uso de títulos e imagens presentes neste site não tem intuito de vender ou distribuir os livros aqui citados. Os títulos presentes são usados meramente com fins educacionais para a prática de conhecimentos em programação.</p>
+      </div>
+
     </div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

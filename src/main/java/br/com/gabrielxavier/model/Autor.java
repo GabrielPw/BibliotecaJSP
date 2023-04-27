@@ -1,6 +1,10 @@
 package br.com.gabrielxavier.model;
 
 import br.com.gabrielxavier.database.DatabaseConnection;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,13 +27,12 @@ public class Autor {
     String urlFoto;
 
     @OneToMany(mappedBy = "autor", fetch = FetchType.EAGER)
-    List<Livro> livros  = new ArrayList<>();
+    List<Livro>  livros  = new ArrayList<>();
 
     public Autor() {
     }
 
-    public Autor(Long id, String nome, String descricao, String urlFoto) {
-        this.id = id;
+    public Autor(String nome, String descricao, String urlFoto) {
         this.nome = nome;
         this.descricao = descricao;
         this.urlFoto = urlFoto;
@@ -46,30 +49,20 @@ public class Autor {
         this.livros.add(livro);
     }
 
-    public void salvarAutor(){
-        EntityManager em = DatabaseConnection.getEntityManagerFactory().createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-
-        try {
-            transaction.begin();
-            em.persist(this);
-            transaction.commit();
-
-            System.out.println("Autor: " + this.getNome() + " foi salvo.");
-        } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-            throw e;
-        } finally {
-            em.close();
-        }
-    }
 
     static public List<Autor> getAllAutores() {
         EntityManager em = DatabaseConnection.getEntityManagerFactory().createEntityManager();
         List<Autor> autores = em.createQuery("SELECT a FROM Autor a", Autor.class).getResultList();
         em.close();
         return autores;
+    }
+
+    static public List<Autor> getRecomendados(int numeroDeAutores) {
+        EntityManager em = DatabaseConnection.getEntityManagerFactory().createEntityManager();
+        List<Autor> autor = em.createQuery("SELECT a FROM Autor a ORDER BY RAND()", Autor.class)
+                .setMaxResults(numeroDeAutores)
+                .getResultList();
+        em.close();
+        return autor;
     }
 }

@@ -50,3 +50,58 @@ $(document).ready(function() {
 //  });
 //
 //
+
+function updateBookList(livros) {
+    var bookList = document.getElementById("bookList");
+    bookList.innerHTML = "";
+    livros.forEach(function(livro) {
+        var card = document.createElement("div");
+        card.className = "card col-md-2";
+        card.style = "width: 10rem;";
+
+        var img = document.createElement("img");
+        img.className = "card-img-top";
+        img.src = livro.urlFotoCapa;
+
+        var cardBody = document.createElement("div");
+        cardBody.className = "card-body";
+
+        var title = document.createElement("h5");
+        title.className = "card-title";
+        title.innerHTML = livro.titulo;
+
+        var author = document.createElement("p");
+        author.className = "card-text";
+        author.innerHTML = livro.autor.nome;
+
+        var linkEditar = document.createElement("a");
+        linkEditar.className = "link-editar";
+        linkEditar.innerHTML = "Editar";
+        linkEditar.href = "/biblioteca/gerenciadorLivros?id=" + livro.id;
+
+        cardBody.appendChild(title);
+        cardBody.appendChild(author);
+        cardBody.appendChild(linkEditar);
+        card.appendChild(img);
+        card.appendChild(cardBody);
+        bookList.appendChild(card);
+    });
+}
+
+function loadBookPreview(){
+    var httpRequest = new XMLHttpRequest();
+
+    httpRequest.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // Analisar a resposta do servidor e atualizar a seção de pré-visualização do livro.
+            var livros = JSON.parse(this.responseText);
+
+            updateBookList(livros);
+        }
+    };
+    // Defina a URL para a solicitação AJAX.
+    var url = "/biblioteca/gerenciadorLivros?query=" + encodeURIComponent(document.getElementById("searchInput").value);
+
+    httpRequest.open("GET", url);
+    httpRequest.send();
+}

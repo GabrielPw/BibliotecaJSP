@@ -18,31 +18,16 @@
 <body>
 
     <!-- menu principal-->
-         <header id="header">
-            <div id="header-links" class="container">
-                <a id="logo" href="/biblioteca/">Biblioteca<i>JSP</i></a>
-                <nav id="nav" class="container">
-                  <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu" aria-expanded="false">Menu
-                    <span id="hamburger"></span>
-                  </button>
-                  <ul id="menu" role="menu">
-                    <li><a href="/biblioteca/">Inicio</a></li>
-                    <li><a href="/biblioteca/#autores">Autores</a></li>
-                    <li><a href="/biblioteca/gerenciadorLivros">Add. Livro</a></li>
-                  </ul>
-                </nav>
-            </div>
-         </header>
-         <script src="./script.js"></script>
+    <jsp:include page="menu.jsp" />
 
     <!-- Barra de pesquisa -->
     <div class="container">
-            <form action="search" method="GET">
-                <div class="search-bar d-flex p-2">
-                    <input type="text" class="form-control" name="query" placeholder="Livro, autor, etc." aria-label="Username" aria-describedby="basic-addon1"/>
-                    <button class="botao-buscar btn rounded" type="submit">Buscar</button>
-                </div>
-            </form>
+        <form action="search" method="GET">
+            <div class="search-bar d-flex p-2">
+                <input type="text" class="form-control" name="query" placeholder="Livro, autor, etc." aria-label="Username" aria-describedby="basic-addon1"/>
+                <button class="botao-buscar btn rounded" type="submit">Buscar</button>
+            </div>
+        </form>
     </div>
 
     <div class="container">

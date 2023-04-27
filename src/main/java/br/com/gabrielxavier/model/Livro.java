@@ -2,6 +2,8 @@ package br.com.gabrielxavier.model;
 
 import br.com.gabrielxavier.database.DatabaseConnection;
 import br.com.gabrielxavier.enuns.CategoriaLivroEnum;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,18 +17,18 @@ public class Livro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String titulo;
+    private Long id;
+    private String titulo;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    List<CategoriaLivroEnum> categorias;
+    private List<CategoriaLivroEnum> categorias;
 
     @Column(columnDefinition = "TEXT")
-    String urlFotoCapa;
+    private String urlFotoCapa;
 
     @ManyToOne
-    Autor autor;
+    private Autor autor;
 
     public Livro(){
 
@@ -40,28 +42,20 @@ public class Livro {
         this.categorias = categorias;
     }
 
-    public void salvarLivro(){
-        EntityManager em = DatabaseConnection.getEntityManagerFactory().createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-
-        try {
-            transaction.begin();
-            em.persist(this);
-            transaction.commit();
-            System.out.println("Livro: " + this.getTitulo() + " foi salvo.");
-        } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-            throw e;
-        } finally {
-            em.close();
-        }
-    }
 
     static public List<Livro> getAllLivros() {
         EntityManager em = DatabaseConnection.getEntityManagerFactory().createEntityManager();
         List<Livro> livros = em.createQuery("SELECT l FROM Livro l", Livro.class).getResultList();
+        em.close();
+        return livros;
+    }
+
+    // Obtem lista com n livros aleatórios do banco de dados.
+    static public List<Livro> getRecomendados(int numeroDeLivros) {
+        EntityManager em = DatabaseConnection.getEntityManagerFactory().createEntityManager();
+        List<Livro> livros = em.createQuery("SELECT l FROM Livro l ORDER BY RAND()", Livro.class)
+                .setMaxResults(numeroDeLivros)
+                .getResultList();
         em.close();
         return livros;
     }

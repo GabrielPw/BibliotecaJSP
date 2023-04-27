@@ -3,6 +3,7 @@
 
 <%@page import="br.com.gabrielxavier.enuns.CategoriaLivroEnum"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,24 +18,7 @@
 <body>
 
     <!-- menu principal-->
-     <header id="header">
-        <div id="header-links" class="container">
-            <a id="logo" href="/biblioteca/">Biblioteca<i>JSP</i></a>
-            <nav id="nav" class="container">
-              <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu" aria-expanded="false">Menu
-                <span id="hamburger"></span>
-              </button>
-              <ul id="menu" role="menu">
-                <li><a href="/biblioteca/">Inicio</a></li>
-                <li><a href="/biblioteca/#autores">Autores</a></li>
-                <li><a href="/biblioteca/gerenciadorLivros">Add. Livro</a></li>
-              </ul>
-            </nav>
-        </div>
-     </header>
-     <script src="./script.js"></script>
-
-    <!-- -->
+    <jsp:include page="menu.jsp" />
 
     <div class="container">
         <h1>Gerenciador de Recursos</h1>
@@ -52,45 +36,127 @@
         </div>
 
         <!-- Livros (formulário) -->
+        <!-- livros-form (tab de livros) -->
         <div id="livros-form">
-            <form>
-              <div class="form-group">
-                <label for="titulo">Título</label>
-                <input type="text" class="form-control" id="titulo">
-              </div>
-              <div class="form-group">
-                <label for="autor">Autor</label>
-                <select class="form-control" id="autor">
-                  <c:forEach items="${autores}" var="autor">
-                      <option value="${autor.getNome()}">${autor.getNome()}</option>
-                  </c:forEach>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="foto">URL da Foto</label>
-                <input type="text" class="form-control" id="urlFotoCapa">
-              </div>
-              <button type="submit" class="btn btn-primary">Cadastrar Livro</button>
-            </form>
+            <div id="livros-accordion">
+                <div class="accordion" id="accordionLivros">
+                    <div class="card">
+                        <div class="card-header" id="headingLivro">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link botao-accordion" type="button" data-toggle="collapse" data-target="#collapseLivro" aria-expanded="true" aria-controls="collapseLivro">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                                    </svg> Adicionar Livro
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapseLivro" class="collapse" aria-labelledby="headingLivro" data-parent="#accordionLivros">
+                            <div class="card-body">
+                                <form method="POST">
+                                    <div class="form-group">
+                                        <label for="titulo">Título</label>
+                                        <input type="text" class="form-control" name="titulo" id="titulo">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="autor">Autor</label>
+                                        <select class="form-control" id="autor" name="autor">
+                                            <c:forEach items="${autores}" var="autor">
+                                                <option value="${autor.getNome()}">${autor.getNome()}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="categorias">Categorias</label>
+                                        <c:forEach items="<%=CategoriaLivroEnum.values()%>" var="categoria">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="${categoria.toString()}" id="flexCheckDefault" name="categorias">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    ${categoria.toString()}
+                                                </label>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="foto">URL da Foto</label>
+                                        <input type="text" class="form-control" id="urlFotoCapa" name="urlFoto">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" name="cadastrarLivro">Cadastrar Livro</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Editar (UPDATE) Livro -->
+            <div id="livros-accordion">
+                <div class="accordion" id="accordionLivrosUpdate">
+                    <div class="card">
+                        <div class="card-header" id="headingLivroUpdate">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link botao-accordion" type="button" data-toggle="collapse" data-target="#collapseLivroUpdate" aria-expanded="true" aria-controls="collapseLivroUpdate">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                                    </svg> Atualizar Livro
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapseLivroUpdate" class="collapse" aria-labelledby="headingLivroUpdate" data-parent="#accordionLivrosUpdate">
+                            <div class="card-body">
+                                <div class="search-bar d-flex p-2">
+                                    <input type="text" id="searchInput" class="form-control" name="query" placeholder="Busque o titulo do livro para atualiza-lo." aria-label="Username" aria-describedby="basic-addon1"/>
+                                    <button class="botao-buscar" type="submit" onclick="loadBookPreview()">Buscar</button>
+                                </div>
+                                <div>
+                                    <div class="row container-book-list" id="bookList">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Autores (formulário) -->
         <div id="autores-form">
-            <form>
-                <div class="form-group">
-                    <label for="nome">Nome</label>
-                    <input type="text" class="form-control" id="nome">
+            <div id="autores-accordion">
+                <div class="accordion" id="accordionAutores">
+                    <div class="card">
+                        <div class="card-header" id="headingAutor">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link botao-accordion" type="button" data-toggle="collapse" data-target="#collapseAutor" aria-expanded="true" aria-controls="collapseAutor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                                    </svg> Adicionar Autor
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapseAutor" class="collapse" aria-labelledby="headingAutor" data-parent="#accordionAutores">
+                            <div class="card-body">
+                                <form method="POST">
+                                    <div class="form-group">
+                                        <label for="nome">Nome</label>
+                                        <input type="text" class="form-control" id="nome" name="nome">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="descricao">Descrição</label>
+                                        <input type="email" class="form-control" id="descricao" name="descricao">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="descricao">URL da Foto</label>
+                                        <input type="email" class="form-control" id="urlFoto" name="urlFoto">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" name="cadastrarAutor">Cadastrar Autor</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="descricao">Descrição</label>
-                    <input type="email" class="form-control" id="descricao">
-                </div>
-                <div class="form-group">
-                    <label for="descricao">URL da Foto</label>
-                    <input type="email" class="form-control" id="urlFoto">
-                </div>
-                <button type="submit" class="btn btn-primary">Cadastrar Autor</button>
-            </form>
+            </div>
         </div>
     </div>
 
