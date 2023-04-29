@@ -1,4 +1,5 @@
 # Biblioteca Online
+<img src="images/homepage.gif">
 
 Este é um projeto de biblioteca online, que permite aos usuários pesquisar e filtrar livros, bem como cadastrar e atualizar novos livros.
 
