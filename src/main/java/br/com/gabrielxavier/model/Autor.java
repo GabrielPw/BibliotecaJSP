@@ -50,12 +50,6 @@ public class Autor {
     }
 
 
-    static public List<Autor> getAllAutores() {
-        EntityManager em = DatabaseConnection.getEntityManagerFactory().createEntityManager();
-        List<Autor> autores = em.createQuery("SELECT a FROM Autor a", Autor.class).getResultList();
-        em.close();
-        return autores;
-    }
 
     static public List<Autor> getRecomendados(int numeroDeAutores) {
         EntityManager em = DatabaseConnection.getEntityManagerFactory().createEntityManager();

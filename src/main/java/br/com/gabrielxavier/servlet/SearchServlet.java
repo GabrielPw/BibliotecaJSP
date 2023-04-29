@@ -1,5 +1,6 @@
 package br.com.gabrielxavier.servlet;
 
+import br.com.gabrielxavier.DAO.AutorDAO;
 import br.com.gabrielxavier.enuns.CategoriaLivroEnum;
 import br.com.gabrielxavier.model.Autor;
 import br.com.gabrielxavier.model.Livro;
@@ -27,7 +28,7 @@ public class SearchServlet extends HttpServlet {
         List<Autor> autores = new ArrayList<>();
         List<Livro> livros = new ArrayList<>();
 
-        autores = Autor.getAllAutores();
+        autores = AutorDAO.obterTodos();
         livros = Livro.getAllLivros();
 
         // Se NÃO existir nem 'query, nem 'category'.
@@ -83,6 +84,7 @@ public class SearchServlet extends HttpServlet {
         str = Normalizer.normalize(str, Normalizer.Form.NFD);
         str = str.replaceAll("[^\\p{ASCII}]", "");
         str = str.replaceAll("\\s+", "_");
+        str = str.replaceAll("-", "");
         return str;
     }
 }

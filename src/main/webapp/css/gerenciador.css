@@ -24,10 +24,30 @@
 
 .link-editar{
     color: rgb(195 174 136) !important;
+    background: none !important;
+}
+
+.link-editar a{
+    width: fit-content;
+    text-align: left;
 }
 
 .link-editar a:hover{
-    background: none;
-    text-decoration: underline;
+    text-decoration: underline !import
 }
 
+.container-edicao{
+    border: 1px solid #a1866d !important;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 20px;
+    justify-content: space-evenly;
+}
+.corpo-card{
+
+    display: block !important;
+}
+.form-column{
+
+    width: 50%;
+}

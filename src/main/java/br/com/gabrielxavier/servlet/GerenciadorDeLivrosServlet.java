@@ -18,9 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @WebServlet ("/gerenciadorLivros")
@@ -38,25 +36,35 @@ public class GerenciadorDeLivrosServlet extends HttpServlet {
 
             // Busca livros relacionados à pesquisa do usuário
             List<Livro> livros = LivroDAO.buscarLivros(query);
+            List<String> autores = AutorDAO.obterTodos().stream().map(autor -> autor.getNome()).collect(Collectors.toList());
 
-            Gson gson = new Gson();
+            // Crie um objeto Java que representa as duas listas
+            Map<String, List<?>> data = new HashMap<>();
 
             // setando o atributo de lista de livros para null para evitar problemas de recursividade (StackOverflowError).
             livros.forEach(livro -> {
                 livro.getAutor().setLivros(null);
             });
 
-            String livrosJson = gson.toJson(livros);
+            data.put("autores", autores);
+            data.put("livros", livros);
 
-            System.out.println("JSON: " + livrosJson);
+            Gson gson = new Gson();
+
+//            String livrosJson = gson.toJson(livros);
+//            String autoresJson = gson.toJson(autores);
+
+            String jsonData = gson.toJson(data);
+
+            //System.out.println("JSON: " + livrosJson);
 
             // Configura a resposta da solicitação AJAX
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(livrosJson);
+            response.getWriter().write(jsonData);
 
         } else{
-            List<Autor> autores = Autor.getAllAutores();
+            List<Autor> autores = AutorDAO.obterTodos();
             request.setAttribute("autores", autores);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/gerenciadorRecursos.jsp");
             dispatcher.forward(request, response);

@@ -6,6 +6,7 @@ import br.com.gabrielxavier.model.Autor;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class AutorDAO {
 
@@ -37,5 +38,13 @@ public class AutorDAO {
         Autor autor = query.getSingleResult();
         em.close();
         return autor;
+    }
+    public static List<Autor> obterTodos(){
+
+        EntityManager em = DatabaseConnection.getEntityManagerFactory().createEntityManager();
+        List<Autor> autores = em.createQuery("SELECT a FROM Autor a", Autor.class).getResultList();
+        em.close();
+        return autores;
+
     }
 }

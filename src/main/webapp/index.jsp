@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-	<title>Novo Livro</title>
+	<title>BibliotecaJSP | Biblioteca Online</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://unpkg.com/@splidejs/splide@3.0.9/dist/css/splide.min.css" />
@@ -45,7 +45,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
                                   <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
                                 </svg>
-                                <a class="link-categoria" href="/biblioteca/search?category=${categoria.toString()}">${categoria.toString()}</a>
+                                <a class="link-categoria" href="/search?category=${categoria.toString()}">${categoria.toString()}</a>
                                 </p>
                             </div>
                         </c:forEach>

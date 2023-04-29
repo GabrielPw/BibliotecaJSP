@@ -107,7 +107,7 @@
                             <div class="card-body">
                                 <div class="search-bar d-flex p-2">
                                     <input type="text" id="searchInput" class="form-control" name="query" placeholder="Busque o titulo do livro para atualiza-lo." aria-label="Username" aria-describedby="basic-addon1"/>
-                                    <button class="botao-buscar" type="submit" onclick="loadBookPreview()">Buscar</button>
+                                    <button class="botao-buscar" type="submit" onclick="doSearch()">Buscar</button>
                                 </div>
                                 <div>
                                     <div class="row container-book-list" id="bookList">

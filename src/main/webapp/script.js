@@ -51,8 +51,146 @@ $(document).ready(function() {
 //
 //
 
-function updateBookList(livros) {
+function doPreview(titulo, nomeAutor, urlFoto){
+
+  console.log(titulo +  " --> " + nomeAutor + " --> " + urlFoto);
+
+  // Valores inserido pelo usuário
+  var tituloElement = document.getElementById("tituloInput").value;
+  var autorElement = document.getElementById("selectAutores").value;
+  var fotoElement = document.getElementById("urlFotoInput").value;
+
+  console.log("Entrada: " +  " --> " + tituloElement + " --> " + autorElement + " --> " + fotoElement);
+  
+  // Atualizando área de preview.
+  var tituloPreview = document.getElementById("tituloPreview");
+  var autorPreview = document.getElementById("autorPreview");
+  var fotoPreview = document.getElementById("fotoPreview");
+
+  tituloPreview.innerText = tituloElement;
+  autorPreview.innerText = autorElement;
+  fotoPreview.src = fotoElement;
+}
+
+function showEditFormAndBookpreview(livro, nomeAutores){
+
+  console.log("Clicou em editar no livro (" + livro.id + ")");
+  console.log("nome autores: " + nomeAutores);
+
+  var divBookList = document.getElementById("bookList");
+  divBookList.className = "container-book-list"
+  divBookList.innerHTML = "";
+  
+  var divContainer = document.createElement("div");
+  divContainer.className = "row container-edicao";
+
+  // Card
+  var card = document.createElement("div");
+  card.className = "card col-md-2";
+  card.style = "width: 10rem;";
+
+  var p = document.createElement("p");
+  p.innerHTML = "(preview)";
+  p.style.fontWeight = 500;
+  p.style.textAlign = "center";
+  var img = document.createElement("img");
+  img.className = "card-img-top";
+  img.src = livro.urlFotoCapa;
+  img.setAttribute("id", "fotoPreview");
+
+
+  var cardBody = document.createElement("div");
+  cardBody.className = "card-body corpo-card";
+
+  var title = document.createElement("h5");
+  title.className = "card-title";
+  title.innerHTML = livro.titulo;
+  title.setAttribute("id", "tituloPreview");
+
+
+  var author = document.createElement("p");
+  author.className = "card-text";
+  author.innerHTML = livro.autor.nome;
+  author.setAttribute("id", "autorPreview");
+
+
+  cardBody.appendChild(title);
+  cardBody.appendChild(author);
+  card.appendChild(p);
+  card.appendChild(img);
+  card.appendChild(cardBody);
+  divContainer.appendChild(card);
+  divBookList.appendChild(divContainer);
+
+  // Formulário
+  var divForm = document.createElement("div");
+  divForm.className = "form-column";
+
+  // Adicione o conteúdo necessário à coluna de formulário
+  var formTitle = document.createElement("h5");
+  formTitle.innerHTML = "Editar livro";
+  divForm.appendChild(formTitle);
+
+  var form = document.createElement("form");
+  // Adicione os campos do formulário para editar o livro
+
+  var tituloInput = document.createElement("input");
+  tituloInput.type = "text";
+  tituloInput.className = "form-control";
+  tituloInput.value = livro.titulo;
+  tituloInput.setAttribute("id", "tituloInput");
+
+  var urlFotoInput = document.createElement("input");
+  urlFotoInput.type = "text";
+  urlFotoInput.className = "form-control";
+  urlFotoInput.value = livro.urlFotoCapa;
+  urlFotoInput.setAttribute("id", "urlFotoInput");
+
+  var selectAutores = document.createElement("select");
+  selectAutores.className = "form-control";
+  selectAutores.setAttribute("id", "selectAutores");
+
+
+  // Cria options para cada autor e adiciona na tag selectAutores
+  nomeAutores.forEach(function(nome) {
+    var option = document.createElement("option");
+    option.value = nome;
+    option.text = nome;
+    selectAutores.appendChild(option);
+  });
+
+  // Deixa o nome do autor certo selecionado no option do campo select.
+  Array.from(selectAutores.options).forEach(function(option) {
+    
+    console.log("titulo livro: " + livro.autor.nome + "option atual: " + option.value);
+    if(livro.autor.nome == option.value){
+      option.selected = true;
+    }
+  });
+
+  form.appendChild(tituloInput);
+  form.appendChild(selectAutores);
+  form.appendChild(urlFotoInput);
+
+  // Adicione o botão de salvar e de preview
+  var previewButton = document.createElement("a");
+  previewButton.className = "btn"
+  previewButton.innerHTML = "Preview";
+  previewButton.onclick = function(){doPreview(tituloInput.value, selectAutores.value, urlFotoInput.value);};
+  var updateButton = document.createElement("a");
+  updateButton.className = "btn"
+  updateButton.innerHTML = "Atualizar";
+  
+  form.appendChild(previewButton);
+  form.appendChild(updateButton);
+
+  divForm.appendChild(form);
+  divContainer.appendChild(divForm);
+}
+
+function updateBookList(livros, autores) {
     var bookList = document.getElementById("bookList");
+    bookList.className = "row container-book-list";
     bookList.innerHTML = "";
     livros.forEach(function(livro) {
         var card = document.createElement("div");
@@ -64,7 +202,7 @@ function updateBookList(livros) {
         img.src = livro.urlFotoCapa;
 
         var cardBody = document.createElement("div");
-        cardBody.className = "card-body";
+        cardBody.className = "card-body corpo-card";
 
         var title = document.createElement("h5");
         title.className = "card-title";
@@ -77,7 +215,7 @@ function updateBookList(livros) {
         var linkEditar = document.createElement("a");
         linkEditar.className = "link-editar";
         linkEditar.innerHTML = "Editar";
-        linkEditar.href = "/biblioteca/gerenciadorLivros?id=" + livro.id;
+        linkEditar.onclick = function() {showEditFormAndBookpreview(livro, autores);};
 
         cardBody.appendChild(title);
         cardBody.appendChild(author);
@@ -88,19 +226,19 @@ function updateBookList(livros) {
     });
 }
 
-function loadBookPreview(){
+function doSearch(){
     var httpRequest = new XMLHttpRequest();
 
     httpRequest.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             // Analisar a resposta do servidor e atualizar a seção de pré-visualização do livro.
-            var livros = JSON.parse(this.responseText);
+            var responseJson = JSON.parse(this.responseText);
 
-            updateBookList(livros);
+            updateBookList(responseJson.livros, responseJson.autores);
         }
     };
     // Defina a URL para a solicitação AJAX.
-    var url = "/biblioteca/gerenciadorLivros?query=" + encodeURIComponent(document.getElementById("searchInput").value);
+    var url = "/gerenciadorLivros?query=" + encodeURIComponent(document.getElementById("searchInput").value);
 
     httpRequest.open("GET", url);
     httpRequest.send();
